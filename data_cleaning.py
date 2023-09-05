@@ -14,8 +14,8 @@ df = c.execute("Select * from products").fetchall()
 df = pd.DataFrame(df, columns = ['code','pr','price_azn','price_exc_vat_azn'])
 
 #Take numerical data out of the columns with regex
-df['price_azn'] = df.price_azn.apply(lambda x : re.findall(r'\d+\.\d+', x)[0])
-df['price_exc_vat_azn'] = df.price_exc_vat_azn.apply(lambda x : re.findall(r'\d+\.\d+', x)[0])
+df['price_azn'] = df.price_azn.apply(lambda x : re.findall(r'\d+(?:,\d+)?\.\d+', x)[0])
+df['price_exc_vat_azn'] = df.price_exc_vat_azn.apply(lambda x : re.findall(r'\d+(?:,\d+)?\.\d+', x)[0])
 
 #Set column type as Float in order to be able to work on it
 df.price_azn = df.price_azn.astype('float64')
